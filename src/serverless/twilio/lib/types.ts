@@ -3,6 +3,12 @@ export interface GenericResponse {
   body: string
 }
 
+export interface SendSms {
+  from: string
+  to: string | string[]
+  body: string
+}
+
 export interface TwilioSmsRequest {
   from: string
   to: string

@@ -1,5 +1,5 @@
 import { Handler, APIGatewayProxyEvent, Context, Callback } from 'aws-lambda'
-import { GenericResponse, TwilioConfig, TwilioSmsRequest } from './lib/types'
+import { GenericResponse, SendSms, TwilioConfig, TwilioSmsRequest } from './lib/types'
 import twilio from 'twilio'
 
 const sendSms: Handler = async (
@@ -9,15 +9,27 @@ const sendSms: Handler = async (
 ) => {
   try {
     let body: any = JSON.parse(event.body || '')
-    let config: TwilioConfig = body.config
-    let message: TwilioSmsRequest = body.message
-    console.log('config', config)
+    let accountSid = body.config.twilioAccountSid
+    let token = body.config.twilioToken
+    let config: TwilioConfig = { accountSid, token }
+    let payload: SendSms = body.payload
+    let twilioPromises = []
 
     const client = twilio(config.accountSid, config.token)
 
-    // Send the message
-    await client.messages.create(message)
-    // Confirm sending to the caller
+    // Send the messages
+    if (!Array.isArray(payload.to)) payload.to = [payload.to]
+    payload.to.forEach((num: string) => {
+      let message: TwilioSmsRequest = {
+        from: payload.from,
+        to: num,
+        body: payload.body,
+      }
+      twilioPromises.push(client.messages.create(message))
+    })
+
+    // Confirm success to the caller
+    await Promise.all(twilioPromises)
     const response: GenericResponse = {
       statusCode: 200,
       body: JSON.stringify({ message: 'Message Sent' }),
