@@ -17,9 +17,9 @@ package:
     src/handler.ts
 
 functions:
-  send-sms:
-    handler: handler.sendSms
+  send-email:
+    handler: handler.sendEmail
     events:
       - http:
-          path: sms/send
+          path: email/send
           method: post
