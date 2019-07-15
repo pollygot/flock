@@ -17,10 +17,10 @@ const sendSms: Handler = async (
 
     // Send the messages
     if (!Array.isArray(payload.to)) payload.to = [payload.to]
-    payload.to.forEach((deviceId: string) => {
+    payload.to.forEach((token: string) => {
       let data: SendPushExpoRequest = {
         ...payload,
-        to: deviceId
+        to: token
       }
       expoPromises.push(axios.post(EXPO_URL, data))
     })
