@@ -1,0 +1,28 @@
+{
+  "name": "pollygot-flock-expo",
+  "version": "1.2.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "deploy": "serverless deploy -v --aws-profile nimbus",
+    "deploy:prod": "npm version minor && serverless deploy -v --stage prod --aws-profile nimbus",
+    "dev": "serverless offline start",
+    "logs": "serverless logs -f main -t --aws-profile nimbus",
+    "push": "serverless deploy function -f main --aws-profile nimbus",
+    "remove": "AWS_PROFILE=nimbus serverless remove --stage dev --aws-profile nimbus",
+    "remove:prod": "AWS_PROFILE=nimbus serverless remove --stage prod --aws-profile nimbus",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.27",
+    "serverless-offline": "^5.3.3",
+    "serverless-plugin-typescript": "^1.1.7"
+  },
+  "dependencies": {
+    "@types/mailgun-js": "^0.16.4",
+    "axios": "^0.19.0",
+    "typescript": "^3.5.1"
+  }
+}
