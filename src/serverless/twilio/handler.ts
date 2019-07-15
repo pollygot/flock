@@ -13,7 +13,7 @@ const sendSms: Handler = async (
     let token = body.config.twilioToken
     let config: TwilioConfig = { accountSid, token }
     let payload: SendSms = body.payload
-    let twilioPromises = []
+    let twilioPromises: any = []
 
     const client = twilio(config.accountSid, config.token)
 
