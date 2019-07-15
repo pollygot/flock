@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const EXPO_URL = `https://exp.host/--/api/v2/push/send`
 
-const sendSms: Handler = async (
+export const sendPush: Handler = async (
   event: APIGatewayProxyEvent,
   context: Context,
   callback: Callback
@@ -33,4 +33,3 @@ const sendSms: Handler = async (
     return sendFatalError(error)
   }
 }
-export { sendSms }
