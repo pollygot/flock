@@ -1,0 +1,25 @@
+service: ${file(./package.json):name}
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: ap-southeast-1
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+custom:
+  webpackIncludeModules: true
+  
+package:
+  include:
+    src/handler.ts
+
+functions:
+  send-to-feed:
+    handler: handler.sendToFeed
+    events:
+      - http:
+          path: feed/send
+          method: post
