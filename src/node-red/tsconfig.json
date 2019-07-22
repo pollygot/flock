@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "lib": [ "es6", "dom" ],
+    "outDir": "./nodes",
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "allowJs": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "preserveConstEnums": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+  },
+  "exclude": [ "node_modules", "test", "nodes" ]
+}
