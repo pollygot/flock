@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha \"test/**/*_spec.js\"",
     "watch": "tsc -w",
-    "publish": "npm patch && npm publish"
+    "publish": "npm version patch && npm publish"
   },
   "node-red": {
     "nodes": {
