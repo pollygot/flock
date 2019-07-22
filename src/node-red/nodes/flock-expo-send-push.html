@@ -3,8 +3,10 @@
     category: 'Flock',
     color: '#a6bbcf',
     defaults: {
-      flockApiKey: { value: '' },
+      server: { value: '', type: 'flock-config' },
+      to: { value: '' },
       title: { value: '' },
+      body: { value: '' },
     },
     inputs: 1,
     outputs: 1,
@@ -17,24 +19,31 @@
 
 <script type="text/x-red" data-template-name="flock-expo-send-push">
   <div class="form-row">
-    <label for="expo-to"><i class="icon-tag"></i> To</label>
-    <input type="text" id="expo-to">
+    <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
+    <input type="text" id="node-input-server">
   </div>
-  <div class="form-tips">An Expo push token, or array of tokens, specifying the recipient of this message.</div>
-  
+
   <div class="form-row">
-    <label for="expo-title"><i class="icon-tag"></i> Title</label>
-    <input type="text" id="expo-title">
+    <label for="node-input-to"><i class="icon-tag"></i> To</label>
+    <input type="text" id="node-input-to">
   </div>
-  <div class="form-tips">The title to display in the notification.</div>
-  
+
   <div class="form-row">
-    <label for="expo-body"><i class="icon-tag"></i> Body</label>
-    <textarea id="expo-body"></textarea>
+    <label for="node-input-title"><i class="icon-tag"></i> Title</label>
+    <input type="text" id="node-input-title">
   </div>
-  <div class="form-tips">The message to display in the notification.</div>
+
+  <div class="form-row">
+    <label for="node-input-body"><i class="icon-tag"></i> Body</label>
+    <textarea id="node-input-body" style="width:93%;height:100px;"></textarea>
+  </div>
 </script>
 
 <script type="text/x-red" data-help-name="flock-expo-send-push">
-  <p>A Node for interacting with https://docs.expo.io/</p>
+  <h2>Expo</p>
+  <p>
+    <ul>
+    <li>Documentation: <a href="https://dev.pollygot.com/flock/expo.html">https://dev.pollygot.com/flock/expo.html</a></li>
+    </ul>
+  </p>
 </script>
