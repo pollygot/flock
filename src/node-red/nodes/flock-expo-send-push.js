@@ -1,4 +1,3 @@
-// import axios from 'axios'
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -46,16 +45,32 @@ module.exports = function (RED) {
             RED.nodes.createNode(this, config);
             var node = this;
             node.on('input', function (msg) { return __awaiter(_this, void 0, void 0, function () {
-                var _a;
+                var payload, server, _a, error_1;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
+                            _b.trys.push([0, 4, , 5]);
+                            console.log(node.server);
+                            payload = msg.payload || {};
+                            server = payload.server || null;
+                            if (!server) return [3 /*break*/, 2];
                             _a = msg;
-                            return [4 /*yield*/, msg.payload.toLowerCase()];
+                            return [4 /*yield*/, toLower(payload.title)];
                         case 1:
                             _a.payload = _b.sent();
                             node.send(msg);
-                            return [2 /*return*/];
+                            return [3 /*break*/, 3];
+                        case 2:
+                            node.error('flock-expo-send-push: no config');
+                            node.send(msg);
+                            _b.label = 3;
+                        case 3: return [3 /*break*/, 5];
+                        case 4:
+                            error_1 = _b.sent();
+                            console.log(error_1);
+                            node.send(msg);
+                            return [3 /*break*/, 5];
+                        case 5: return [2 /*return*/];
                     }
                 });
             }); });

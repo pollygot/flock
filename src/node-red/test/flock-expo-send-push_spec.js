@@ -26,7 +26,12 @@ describe('flock-expo-send-push Node', function() {
     })
   })
 
-  it('should make payload lower case', function(done) {
+  it('should send a push notification', function(done) {
+    const payload = {
+      server: {},
+      title: 'Node Red',
+      body: 'Hello World',
+    }
     var flow = [
       { id: 'n1', type: TYPE, name: NAME, wires: [['n2']] },
       { id: 'n2', type: 'helper' },
@@ -35,10 +40,10 @@ describe('flock-expo-send-push Node', function() {
       var n2 = helper.getNode('n2')
       var n1 = helper.getNode('n1')
       n2.on('input', function(msg) {
-        msg.should.have.property('payload', 'uppercase')
+        msg.should.have.property('payload', 'node red')
         done()
       })
-      n1.receive({ payload: 'UpperCase' })
+      n1.receive({ payload })
     })
   })
 })
