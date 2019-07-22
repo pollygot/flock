@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha \"test/**/*_spec.js\"",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "publish": "npm patch && npm publish"
   },
   "node-red": {
     "nodes": {
