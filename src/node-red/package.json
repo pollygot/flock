@@ -1,0 +1,25 @@
+{
+  "name": "node-red-contrib-flock",
+  "version": "0.0.0",
+  "description": "Node-RED helpers for Pollygot Flock. An API on top of multiple notification services to overcome repetitive building and platform idiosyncrasies. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha \"test/**/*_spec.js\""
+  },
+  "node-red": {
+    "nodes": {
+      "flock-expo-send-push": "./nodes/flock-expo-send-push.js"
+    }
+  },
+  "keywords": [
+    "node-red"
+  ],
+  "author": "@kiwicopple",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^6.2.0",
+    "node-red": "^0.20.7",
+    "node-red-node-test-helper": "^0.2.3",
+    "should": "^13.2.3"
+  }
+}
