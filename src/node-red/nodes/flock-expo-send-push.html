@@ -1,26 +1,40 @@
 <script type="text/javascript">
-  RED.nodes.registerType('flock-expo-send-push',{
-      category: 'function',
-      color: '#a6bbcf',
-      defaults: {
-          name: {value:""}
-      },
-      inputs:1,
-      outputs:1,
-      icon: "file.png",
-      label: function() {
-          return this.name||"flock-expo-send-push";
-      }
-  });
+  RED.nodes.registerType('flock-expo-send-push', {
+    category: 'Flock',
+    color: '#a6bbcf',
+    defaults: {
+      flockApiKey: { value: '' },
+      title: { value: '' },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'file.png',
+    label: function() {
+      return this.name || 'flock-expo-send-push'
+    },
+  })
 </script>
 
 <script type="text/x-red" data-template-name="flock-expo-send-push">
   <div class="form-row">
-      <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-      <input type="text" id="node-input-name" placeholder="Name">
+    <label for="expo-to"><i class="icon-tag"></i> To</label>
+    <input type="text" id="expo-to">
   </div>
+  <div class="form-tips">An Expo push token, or array of tokens, specifying the recipient of this message.</div>
+  
+  <div class="form-row">
+    <label for="expo-title"><i class="icon-tag"></i> Title</label>
+    <input type="text" id="expo-title">
+  </div>
+  <div class="form-tips">The title to display in the notification.</div>
+  
+  <div class="form-row">
+    <label for="expo-body"><i class="icon-tag"></i> Body</label>
+    <textarea id="expo-body"></textarea>
+  </div>
+  <div class="form-tips">The message to display in the notification.</div>
 </script>
 
 <script type="text/x-red" data-help-name="flock-expo-send-push">
-  <p>A simple node that converts the message payloads into all flock-expo-send-push characters</p>
+  <p>A Node for interacting with https://docs.expo.io/</p>
 </script>
