@@ -12,8 +12,8 @@
     "nodes": {
       "flock-config": "./nodes/flock-config.js",
       "flock-expo-send-push": "./nodes/flock-expo-send-push.js",
-      "flock-mailgun-send-mail": "./nodes/mailgunSendMail.js",
-      "flock-twilio-send-sms": "./nodes/twilioSendSms.js"
+      "flock-mailgun-send-mail": "./nodes/flock-mailgun-send-mail.js",
+      "flock-twilio-send-sms": "./nodes/flock-twilio-send-sms.js"
     }
   },
   "keywords": [

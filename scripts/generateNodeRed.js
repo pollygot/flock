@@ -9,17 +9,28 @@ const NODES_DIRECTORY = './src/node-red/nodes/'
 
 const jsTemplate = title => {
   let jsName = title.replace(/ /g, '')
+  let nodeName = title.toLowerCase().replace(/ /g, '-')
   return `
+  const axios = require('axios');
   module.exports = function(RED) {
     function ${jsName}Node(config) {
-        RED.nodes.createNode(this, config);
-        var node = this;
+      RED.nodes.createNode(this, config);
+      var node = this;
+
+      // Retrieve the config node
+      node.server = RED.nodes.getNode(config.server);
+      if (node.server) {
+        node.log("Got Flock config");
         node.on('input', function(msg) {
-            msg.payload = msg.payload.toLowerCase();
-            node.send(msg);
+          node.log("Got Flock config");
+          msg.payload = msg.payload.toLowerCase();
+          node.send(msg);
         });
+      } else {
+        node.log("Missing Flock config");
+      }
     }
-    RED.nodes.registerType("${jsName}", ${jsName}Node);
+    RED.nodes.registerType("${nodeName}", ${jsName}Node);
   }
   `
 }
@@ -72,12 +83,13 @@ glob.sync('./src/schema/json/**/*.json').forEach(function(file) {
     let title = definition.title
     let description = definition.description
     let schema = definition.schema
-    fs.writeFile(`${NODES_DIRECTORY}/${type}.js`, jsTemplate(title), err => {
+    let nodeName = title.toLowerCase().replace(/ /g, '-')
+    fs.writeFile(`${NODES_DIRECTORY}/flock-${nodeName}.js`, jsTemplate(title), err => {
       if (err) throw err
       console.log('Saved JS!')
     })
     fs.writeFile(
-      `${NODES_DIRECTORY}/${type}.html`,
+      `${NODES_DIRECTORY}/flock-${nodeName}.html`,
       htmlTemplate(title, description, schema),
       err => {
         if (err) throw err
