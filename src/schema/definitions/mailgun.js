@@ -5,7 +5,7 @@ module.exports = {
   mailgunSendMail: {
     title: 'Mailgun Send Email',
     description: 'Mailgun is a service for sending transactional emails.',
-    urlPath: '/v1/mailgun/email/send',
+    urlPath: '/mailgun/email/send',
     schema: joi.object({
       config: joi.object().keys({
         mailgunApiKey: joi.string().required(),

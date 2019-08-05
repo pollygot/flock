@@ -4,7 +4,7 @@ module.exports = {
   twilioSendSms: {
     title: 'Expo Send Push',
     description: 'A RESTful API for interacting with Expo.',
-    urlPath: '/v1/expo/push/send',
+    urlPath: '/expo/push/send',
     schema: joi.object({
       config: joi.object().keys({
       }),

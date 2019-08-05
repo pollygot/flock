@@ -1,15 +1,19 @@
 /**
  * Generates the Node-RED nodes from JSON schema
  */
-const path = require('path')
-const glob = require('glob')
 const fs = require('fs')
+var convert = require('joi-to-json-schema')
+const definitions = require('../src/schema/definitions/')
 
 const NODES_DIRECTORY = './src/node-red/nodes/'
 
-const jsTemplate = (definition) => {
-  let jsName = definition.title.replace(/ /g, '')
-  let nodeName = definition.title.toLowerCase().replace(/ /g, '-')
+const jsTemplate = (title, urlPath, schema) => {
+  let jsName = title.replace(/ /g, '')
+  let nodeName = title.toLowerCase().replace(/ /g, '-')
+  const payloadProperties = schema.properties.payload.properties
+  const payloadValues = Object.entries(payloadProperties).map(
+    ([name, details]) => `${name}: config.${name}`
+  )
   return `
   const axios = require('axios');
   module.exports = function(RED) {
@@ -24,9 +28,12 @@ const jsTemplate = (definition) => {
 
         const host = node.server.host
         const apiKey = node.server.key
-        const url = host + ${definition.urlPath} + '?apiKey=' + apiKey
-
-        axios.post(host)
+        const url = host + '${urlPath}?apikey=' + apiKey
+        node.error(config.to);
+        node.error(config.body);
+        axios.post(url, {
+            ${payloadValues.join(',\n            ')}
+          })
           .then(function(result) {
             node.log(result.data);
           })
@@ -47,11 +54,15 @@ const htmlTemplate = (title, description, schema) => {
 
   // Payload
   const payloadProperties = schema.properties.payload.properties
-  const payloadDefaults = Object.entries(payloadProperties).map(([name, details]) => `${name}: ${JSON.stringify(details)}`)
-  const payloadInputs = Object.entries(payloadProperties).map(([name, details]) => `<div class="form-row">
+  const payloadDefaults = Object.entries(payloadProperties).map(
+    ([name, details]) => `${name}: { value: '' }`
+  )
+  const payloadInputs = Object.entries(payloadProperties).map(
+    ([name, details]) => `<div class="form-row">
     <label for="node-input-${name}"><i class="icon-tag"></i> ${name}</label>
     <input type="text" id="node-input-${name}" placeholder="">
-  </div>`)
+  </div>`
+  )
 
   return `
   <script type="text/javascript">
@@ -84,24 +95,52 @@ const htmlTemplate = (title, description, schema) => {
 `
 }
 
-glob.sync('./src/schema/json/**/*.json').forEach(function(file) {
-  var category = require(path.resolve(file))
-  Object.entries(category).map(([type, definition]) => {
-    let title = definition.title
-    let description = definition.description
-    let schema = definition.schema
-    let nodeName = title.toLowerCase().replace(/ /g, '-')
-    fs.writeFile(`${NODES_DIRECTORY}/flock-${nodeName}.js`, jsTemplate(definition), err => {
-      if (err) throw err
-      console.log('Saved JS!')
-    })
-    fs.writeFile(
-      `${NODES_DIRECTORY}/flock-${nodeName}.html`,
-      htmlTemplate(title, description, schema),
-      err => {
+// glob.sync('./src/schema/json/**/*.json').forEach(function(file) {
+//   var category = require(path.resolve(file))
+//   Object.entries(category).map(([type, definition]) => {
+//     let title = definition.title
+//     let description = definition.description
+//     let schema = definition.schema
+//     let nodeName = title.toLowerCase().replace(/ /g, '-')
+//     fs.writeFile(`${NODES_DIRECTORY}/flock-${nodeName}.js`, jsTemplate(definition), err => {
+//       if (err) throw err
+//       console.log('Saved JS!')
+//     })
+//     fs.writeFile(
+//       `${NODES_DIRECTORY}/flock-${nodeName}.html`,
+//       htmlTemplate(title, description, schema),
+//       err => {
+//         if (err) throw err
+//         console.log('Schema HTML!')
+//       }
+//     )
+//   })
+// })
+
+const main = () => {
+  // Loop through each type
+  Object.entries(definitions).map(([type, definitions]) => {
+    // Loop through each action
+    Object.entries(definitions).map(([name, definition]) => {
+      let title = definition.title
+      let description = definition.description
+      let urlPath = definition.urlPath
+      let schema = convert(definition.schema)
+      let nodeName = title.toLowerCase().replace(/ /g, '-')
+
+      fs.writeFile(`${NODES_DIRECTORY}/flock-${nodeName}.js`, jsTemplate(title, urlPath, schema), err => {
         if (err) throw err
-        console.log('Schema HTML!')
-      }
-    )
+        console.log('Saved JS!')
+      })
+      fs.writeFile(
+        `${NODES_DIRECTORY}/flock-${nodeName}.html`,
+        htmlTemplate(title, description, schema),
+        err => {
+          if (err) throw err
+          console.log('Schema HTML!')
+        }
+      )
+    })
   })
-})
+}
+main()

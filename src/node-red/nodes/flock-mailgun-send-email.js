@@ -12,9 +12,16 @@
 
         const host = node.server.host
         const apiKey = node.server.key
-        const url = host + undefined '?apiKey=' + apiKey
-
-        axios.post(host)
+        const url = host + '/mailgun/email/send?apikey=' + apiKey
+        node.error(config.to);
+        node.error(config.body);
+        axios.post(url, {
+            to: config.to,
+            from: config.from,
+            subject: config.subject,
+            text: config.text,
+            recipientVariables: config.recipientVariables
+          })
           .then(function(result) {
             node.log(result.data);
           })
