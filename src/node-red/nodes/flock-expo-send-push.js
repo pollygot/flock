@@ -13,18 +13,22 @@
         const host = node.server.host
         const apiKey = node.server.key
         const url = host + '/expo/push/send?apikey=' + apiKey
-        node.error(config.to);
-        node.error(config.body);
         axios.post(url, {
-            to: config.to,
-            title: config.title,
-            body: config.body
+            config: {
+              
+            },
+            payload: {
+              to: config.to,
+              title: config.title,
+              body: config.body
+            }
           })
           .then(function(result) {
             node.log(result.data);
           })
           .catch(function(error) {
             node.error(error);
+            node.error(error.response.data);
           })
         
         node.send(msg);

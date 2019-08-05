@@ -6,8 +6,7 @@ module.exports = {
     description: 'A RESTful API for interacting with Expo.',
     urlPath: '/expo/push/send',
     schema: joi.object({
-      config: joi.object().keys({
-      }),
+      config: joi.object().keys({}),
       payload: joi.object().keys({
         to: joi.string().required(),
         title: joi.string().required(),

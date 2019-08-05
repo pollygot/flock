@@ -13,20 +13,25 @@
         const host = node.server.host
         const apiKey = node.server.key
         const url = host + '/mailgun/email/send?apikey=' + apiKey
-        node.error(config.to);
-        node.error(config.body);
         axios.post(url, {
-            to: config.to,
-            from: config.from,
-            subject: config.subject,
-            text: config.text,
-            recipientVariables: config.recipientVariables
+            config: {
+              mailgunApiKey: config.mailgunApiKey,
+              mailgunDomain: config.mailgunDomain
+            },
+            payload: {
+              to: config.to,
+              from: config.from,
+              subject: config.subject,
+              text: config.text,
+              recipientVariables: config.recipientVariables
+            }
           })
           .then(function(result) {
             node.log(result.data);
           })
           .catch(function(error) {
             node.error(error);
+            node.error(error.response.data);
           })
         
         node.send(msg);

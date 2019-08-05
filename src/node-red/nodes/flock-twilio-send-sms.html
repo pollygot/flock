@@ -5,9 +5,11 @@
         color: '#D8BFD8',
         defaults: {
           server: { value: '', type: 'flock-config' },
+          twilioAccountSid: { value: '' },
+          twilioToken: { value: '' },
           to: { value: '' },
           from: { value: '' },
-          body: { value: '' }
+          body: { value: '' },
         },
         inputs:1,
         outputs:1,
@@ -22,6 +24,14 @@
       <input type="text" id="node-input-server">
     </div>
     <div class="form-row">
+    <label for="node-input-twilioAccountSid"><i class="icon-tag"></i> twilioAccountSid</label>
+    <input type="text" id="node-input-twilioAccountSid" placeholder="">
+  </div>
+  <div class="form-row">
+    <label for="node-input-twilioToken"><i class="icon-tag"></i> twilioToken</label>
+    <input type="text" id="node-input-twilioToken" placeholder="">
+  </div>
+  <div class="form-row">
     <label for="node-input-to"><i class="icon-tag"></i> to</label>
     <input type="text" id="node-input-to" placeholder="">
   </div>

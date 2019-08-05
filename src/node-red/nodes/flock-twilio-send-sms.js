@@ -13,18 +13,23 @@
         const host = node.server.host
         const apiKey = node.server.key
         const url = host + '/twilio/sms/send?apikey=' + apiKey
-        node.error(config.to);
-        node.error(config.body);
         axios.post(url, {
-            to: config.to,
-            from: config.from,
-            body: config.body
+            config: {
+              twilioAccountSid: config.twilioAccountSid,
+              twilioToken: config.twilioToken
+            },
+            payload: {
+              to: config.to,
+              from: config.from,
+              body: config.body
+            }
           })
           .then(function(result) {
             node.log(result.data);
           })
           .catch(function(error) {
             node.error(error);
+            node.error(error.response.data);
           })
         
         node.send(msg);

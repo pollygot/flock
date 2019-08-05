@@ -5,11 +5,13 @@
         color: '#D8BFD8',
         defaults: {
           server: { value: '', type: 'flock-config' },
+          mailgunApiKey: { value: '' },
+          mailgunDomain: { value: '' },
           to: { value: '' },
           from: { value: '' },
           subject: { value: '' },
           text: { value: '' },
-          recipientVariables: { value: '' }
+          recipientVariables: { value: '' },
         },
         inputs:1,
         outputs:1,
@@ -24,6 +26,14 @@
       <input type="text" id="node-input-server">
     </div>
     <div class="form-row">
+    <label for="node-input-mailgunApiKey"><i class="icon-tag"></i> mailgunApiKey</label>
+    <input type="text" id="node-input-mailgunApiKey" placeholder="">
+  </div>
+  <div class="form-row">
+    <label for="node-input-mailgunDomain"><i class="icon-tag"></i> mailgunDomain</label>
+    <input type="text" id="node-input-mailgunDomain" placeholder="">
+  </div>
+  <div class="form-row">
     <label for="node-input-to"><i class="icon-tag"></i> to</label>
     <input type="text" id="node-input-to" placeholder="">
   </div>
