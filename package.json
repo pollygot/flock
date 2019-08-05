@@ -4,7 +4,8 @@
   "description": "Flock by Pollygot - An API on top of multiple notification services to overcome repetitive building and platform idiosyncrasies.",
   "main": "index.js",
   "scripts": {
-    "schema:json": "node ./src/scripts/joiToJsonSchema.js"
+    "gen:json": "node ./scripts/generateJsonSchema.js",
+    "gen:nodes": "node ./scripts/generateNodeRed.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://gitlab.com/pollygot/flock#readme",
   "devDependencies": {
+    "glob": "^7.1.4",
     "joi": "^14.3.1",
     "joi-to-json-schema": "^5.1.0"
   }

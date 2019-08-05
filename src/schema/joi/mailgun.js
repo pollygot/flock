@@ -1,12 +1,13 @@
 var joi = require('joi')
 
-const allSchemas = {
+module.exports = {
+  // Mailgun Send Email
   mailgunSendMail: {
     title: 'Mailgun Send Email',
     description: 'Mailgun is a service for sending transactional emails.',
     schema: joi.object({
       config: joi.object().keys({
-        mailgunApiKey: joi.number().required(),
+        mailgunApiKey: joi.string().required(),
         mailgunDomain: joi.string().required(),
       }),
       payload: joi.object().keys({
@@ -19,5 +20,3 @@ const allSchemas = {
     })
   }
 }
-module.exports = allSchemas
-// export default allSchemas
