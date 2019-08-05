@@ -1,0 +1,51 @@
+{
+  "twilioSendSms": {
+    "title": "Twilio Send SMS",
+    "description": "Twilio is a service for sending SMS.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "type": "object",
+          "properties": {
+            "twilioAccountSid": {
+              "type": "string"
+            },
+            "twilioToken": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "patterns": [],
+          "required": [
+            "twilioAccountSid",
+            "twilioToken"
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "to": {
+              "type": "number"
+            },
+            "from": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "patterns": [],
+          "required": [
+            "to",
+            "from",
+            "body"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "patterns": []
+    }
+  }
+}
