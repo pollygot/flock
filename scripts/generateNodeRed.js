@@ -20,17 +20,17 @@ const jsTemplate = title => {
       // Retrieve the config node
       node.server = RED.nodes.getNode(config.server);
       if (node.server) {
-        node.log("Got Flock config");
+        node.debug("Got Flock config");
         node.on('input', function(msg) {
-          node.log("Got Flock config");
+          node.debug("Got Flock config");
           msg.payload = msg.payload.toLowerCase();
           node.send(msg);
         });
       } else {
-        node.log("Missing Flock config");
+        node.debug("Missing Flock config");
       }
     }
-    RED.nodes.registerType("${nodeName}", ${jsName}Node);
+    RED.nodes.registerType("flock-${nodeName}", ${jsName}Node);
   }
   `
 }
