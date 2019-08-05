@@ -1,0 +1,28 @@
+
+  <script type="text/javascript">
+    RED.nodes.registerType('twilio-send-sms',{
+        category: 'Flock',
+        color: '#00e',
+        defaults: {
+          name: { value: '' }
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"twilio-send-sms";
+        }
+    });
+  </script>
+
+  <script type="text/x-red" data-template-name="twilio-send-sms">
+    <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+  </script>
+
+  <script type="text/x-red" data-help-name="twilio-send-sms">
+    <h2>Twilio Send SMS/h2>
+    <p>Twilio is a service for sending SMS.</p>
+  </script>

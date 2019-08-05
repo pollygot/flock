@@ -1,6 +1,6 @@
 {
   "name": "@pollygot/node-red-contrib-flock",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Node-RED helpers for Pollygot Flock. An API on top of multiple notification services to overcome repetitive building and platform idiosyncrasies. ",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,10 @@
   },
   "node-red": {
     "nodes": {
-      "flock-expo-send-push": "./nodes/flock-expo-send-push.js"
+      "flock-config": "./nodes/flock-config.js",
+      "flock-expo-send-push": "./nodes/flock-expo-send-push.js",
+      "flock-mailgun-send-mail": "./nodes/mailgunSendMail.js",
+      "flock-twilio-send-sms": "./nodes/twilioSendSms.js"
     }
   },
   "keywords": [
