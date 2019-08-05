@@ -24,34 +24,43 @@ const jsTemplate = title => {
   `
 }
 
-const htmlTemplate = (title, description) => {
+const htmlTemplate = (title, description, schema) => {
   let nodeName = title.toLowerCase().replace(/ /g, '-')
+
+  // Payload
+  const payloadProperties = schema.properties.payload.properties
+  const payloadDefaults = Object.entries(payloadProperties).map(([name, details]) => `${name}: ${JSON.stringify(details)}`)
+  const payloadInputs = Object.entries(payloadProperties).map(([name, details]) => `<div class="form-row">
+    <label for="node-input-${name}"><i class="icon-tag"></i> ${name}</label>
+    <input type="text" id="node-input-${name}" placeholder="">
+  </div>`)
+
   return `
   <script type="text/javascript">
     RED.nodes.registerType('${nodeName}',{
         category: 'Flock',
         color: '#00e',
         defaults: {
-          name: { value: '' }
+          server: { value: '', type: 'flock-config' },
+          ${payloadDefaults.join(',\n          ')}
         },
         inputs:1,
         outputs:1,
         icon: "file.png",
-        label: function() {
-            return this.name||"${nodeName}";
-        }
+        label: function() { return this.name || "${nodeName}"; }
     });
   </script>
 
   <script type="text/x-red" data-template-name="${nodeName}">
     <div class="form-row">
-      <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-      <input type="text" id="node-input-name" placeholder="Name">
+      <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
+      <input type="text" id="node-input-server">
     </div>
+    ${payloadInputs.join('\n  ')}
   </script>
 
   <script type="text/x-red" data-help-name="${nodeName}">
-    <h2>${title}/h2>
+    <h2>${title}</h2>
     <p>${description}</p>
   </script>
 `
@@ -62,47 +71,18 @@ glob.sync('./src/schema/json/**/*.json').forEach(function(file) {
   Object.entries(category).map(([type, definition]) => {
     let title = definition.title
     let description = definition.description
+    let schema = definition.schema
     fs.writeFile(`${NODES_DIRECTORY}/${type}.js`, jsTemplate(title), err => {
       if (err) throw err
       console.log('Saved JS!')
     })
-    fs.writeFile(`${NODES_DIRECTORY}/${type}.html`, htmlTemplate(title, description), err => {
-      if (err) throw err
-      console.log('Schema HTML!')
-    })
+    fs.writeFile(
+      `${NODES_DIRECTORY}/${type}.html`,
+      htmlTemplate(title, description, schema),
+      err => {
+        if (err) throw err
+        console.log('Schema HTML!')
+      }
+    )
   })
 })
-
-// const main = () => {
-
-//   // const schema = convert(definitions.mailgun.schema)
-//   // const enriched = [{
-//   //   title: definitions.mailgun.title,
-//   //   description: definitions.mailgun.description,
-//   //   ...schema
-//   // }]
-
-//   // fs.writeFile('jsonSchema.json', JSON.stringify(enriched, null, 2), (err) => {
-//   //   // throws an error, you could also catch it here
-//   //   if (err) throw err;
-
-//   //   // success case, the file was saved
-//   //   console.log('Schema saved!');
-//   // });
-
-//   // enriched.forEach(flock => {
-//   //   let title = flock.title
-//   //   let description = flock.description
-
-//   //   fs.writeFile('./app/nodes/exampleNode.js', jsTemplate(title), (err) => {
-//   //     if (err) throw err;
-//   //     console.log('Saved JS!');
-//   //   });
-//   //   fs.writeFile('./app/nodes/exampleNode.html', htmlTemplate(title, description), (err) => {
-//   //     if (err) throw err;
-//   //     console.log('Schema HTML!');
-//   //   });
-
-//   // });
-// }
-// main()
