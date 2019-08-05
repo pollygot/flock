@@ -1,0 +1,59 @@
+[
+  {
+    "title": "Mailgun Send Email",
+    "description": "Mailgun is a service for sending transactional emails.",
+    "type": "object",
+    "properties": {
+      "config": {
+        "type": "object",
+        "properties": {
+          "mailgunApiKey": {
+            "type": "number"
+          },
+          "mailgunDomain": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "patterns": [],
+        "required": [
+          "mailgunApiKey",
+          "mailgunDomain"
+        ]
+      },
+      "payload": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "number"
+          },
+          "from": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "recipientVariables": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": true,
+            "patterns": []
+          }
+        },
+        "additionalProperties": false,
+        "patterns": [],
+        "required": [
+          "to",
+          "from",
+          "subject",
+          "text"
+        ]
+      }
+    },
+    "additionalProperties": false,
+    "patterns": []
+  }
+]

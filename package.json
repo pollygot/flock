@@ -1,0 +1,23 @@
+{
+  "name": "flock",
+  "version": "1.0.0",
+  "description": "Flock by Pollygot - An API on top of multiple notification services to overcome repetitive building and platform idiosyncrasies.",
+  "main": "index.js",
+  "scripts": {
+    "schema:json": "node ./src/scripts/joiToJsonSchema.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/pollygot/flock.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/pollygot/flock/issues"
+  },
+  "homepage": "https://gitlab.com/pollygot/flock#readme",
+  "devDependencies": {
+    "joi": "^14.3.1",
+    "joi-to-json-schema": "^5.1.0"
+  }
+}
