@@ -3,7 +3,7 @@
  */
 var convert = require('joi-to-json-schema')
 var fs = require('fs')
-var definitions = require('../src/schema/joi/')
+var definitions = require('../src/schema/definitions/')
 
 const JSON_SCHEMA_DIRECTORY = './src/schema/json/'
 
