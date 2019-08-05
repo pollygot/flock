@@ -39,7 +39,7 @@ const htmlTemplate = (title, description, schema) => {
   <script type="text/javascript">
     RED.nodes.registerType('${nodeName}',{
         category: 'Flock',
-        color: '#00e',
+        color: '#D8BFD8',
         defaults: {
           server: { value: '', type: 'flock-config' },
           ${payloadDefaults.join(',\n          ')}
