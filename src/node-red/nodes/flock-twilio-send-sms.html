@@ -1,6 +1,6 @@
 
   <script type="text/javascript">
-    RED.nodes.registerType('twilio-send-sms',{
+    RED.nodes.registerType('flock-twilio-send-sms',{
         category: 'Flock',
         color: '#D8BFD8',
         defaults: {
@@ -12,11 +12,11 @@
         inputs:1,
         outputs:1,
         icon: "file.png",
-        label: function() { return this.name || "twilio-send-sms"; }
+        label: function() { return this.name || "flock-twilio-send-sms"; }
     });
   </script>
 
-  <script type="text/x-red" data-template-name="twilio-send-sms">
+  <script type="text/x-red" data-template-name="flock-twilio-send-sms">
     <div class="form-row">
       <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
       <input type="text" id="node-input-server">
@@ -35,7 +35,7 @@
   </div>
   </script>
 
-  <script type="text/x-red" data-help-name="twilio-send-sms">
+  <script type="text/x-red" data-help-name="flock-twilio-send-sms">
     <h2>Twilio Send SMS</h2>
     <p>Twilio is a service for sending SMS.</p>
   </script>

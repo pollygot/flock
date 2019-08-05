@@ -1,6 +1,6 @@
 
   <script type="text/javascript">
-    RED.nodes.registerType('mailgun-send-email',{
+    RED.nodes.registerType('flock-mailgun-send-email',{
         category: 'Flock',
         color: '#D8BFD8',
         defaults: {
@@ -14,11 +14,11 @@
         inputs:1,
         outputs:1,
         icon: "file.png",
-        label: function() { return this.name || "mailgun-send-email"; }
+        label: function() { return this.name || "flock-mailgun-send-email"; }
     });
   </script>
 
-  <script type="text/x-red" data-template-name="mailgun-send-email">
+  <script type="text/x-red" data-template-name="flock-mailgun-send-email">
     <div class="form-row">
       <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
       <input type="text" id="node-input-server">
@@ -45,7 +45,7 @@
   </div>
   </script>
 
-  <script type="text/x-red" data-help-name="mailgun-send-email">
+  <script type="text/x-red" data-help-name="flock-mailgun-send-email">
     <h2>Mailgun Send Email</h2>
     <p>Mailgun is a service for sending transactional emails.</p>
   </script>

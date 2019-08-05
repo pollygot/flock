@@ -4,6 +4,7 @@ module.exports = {
   twilioSendSms: {
     title: 'Twilio Send SMS',
     description: 'Twilio is a service for sending SMS.',
+    urlPath: '/v1/twilio/sms/send',
     schema: joi.object({
       config: joi.object().keys({
         twilioAccountSid: joi.string().required(),

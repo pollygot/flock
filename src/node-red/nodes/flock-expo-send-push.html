@@ -1,49 +1,41 @@
-<script type="text/javascript">
-  RED.nodes.registerType('flock-expo-send-push', {
-    category: 'Flock',
-    color: '#a6bbcf',
-    defaults: {
-      server: { value: '', type: 'flock-config' },
-      to: { value: '' },
-      title: { value: '' },
-      body: { value: '' },
-    },
-    inputs: 1,
-    outputs: 1,
-    icon: 'file.png',
-    label: function() {
-      return this.name || 'flock-expo-send-push'
-    },
-  })
-</script>
 
-<script type="text/x-red" data-template-name="flock-expo-send-push">
-  <div class="form-row">
-    <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
-    <input type="text" id="node-input-server">
+  <script type="text/javascript">
+    RED.nodes.registerType('flock-expo-send-push',{
+        category: 'Flock',
+        color: '#D8BFD8',
+        defaults: {
+          server: { value: '', type: 'flock-config' },
+          to: {"type":"string"},
+          title: {"type":"string"},
+          body: {"type":"string"}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() { return this.name || "flock-expo-send-push"; }
+    });
+  </script>
+
+  <script type="text/x-red" data-template-name="flock-expo-send-push">
+    <div class="form-row">
+      <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
+      <input type="text" id="node-input-server">
+    </div>
+    <div class="form-row">
+    <label for="node-input-to"><i class="icon-tag"></i> to</label>
+    <input type="text" id="node-input-to" placeholder="">
   </div>
-
   <div class="form-row">
-    <label for="node-input-to"><i class="icon-tag"></i> To</label>
-    <input type="text" id="node-input-to">
+    <label for="node-input-title"><i class="icon-tag"></i> title</label>
+    <input type="text" id="node-input-title" placeholder="">
   </div>
-
   <div class="form-row">
-    <label for="node-input-title"><i class="icon-tag"></i> Title</label>
-    <input type="text" id="node-input-title">
+    <label for="node-input-body"><i class="icon-tag"></i> body</label>
+    <input type="text" id="node-input-body" placeholder="">
   </div>
+  </script>
 
-  <div class="form-row">
-    <label for="node-input-body"><i class="icon-tag"></i> Body</label>
-    <textarea id="node-input-body" style="width:93%;height:100px;"></textarea>
-  </div>
-</script>
-
-<script type="text/x-red" data-help-name="flock-expo-send-push">
-  <h2>Expo</h2>
-  <p>
-    <ul>
-    <li>Documentation: <a href="https://dev.pollygot.com/flock/expo.html">https://dev.pollygot.com/flock/expo.html</a></li>
-    </ul>
-  </p>
-</script>
+  <script type="text/x-red" data-help-name="flock-expo-send-push">
+    <h2>Expo Send Push</h2>
+    <p>A RESTful API for interacting with Expo.</p>
+  </script>

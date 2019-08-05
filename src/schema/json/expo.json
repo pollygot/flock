@@ -1,0 +1,39 @@
+{
+  "twilioSendSms": {
+    "title": "Expo Send Push",
+    "description": "A RESTful API for interacting with Expo.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false,
+          "patterns": []
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "to": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "patterns": [],
+          "required": [
+            "to",
+            "title"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "patterns": []
+    }
+  }
+}

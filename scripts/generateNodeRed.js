@@ -7,9 +7,9 @@ const fs = require('fs')
 
 const NODES_DIRECTORY = './src/node-red/nodes/'
 
-const jsTemplate = title => {
-  let jsName = title.replace(/ /g, '')
-  let nodeName = title.toLowerCase().replace(/ /g, '-')
+const jsTemplate = (definition) => {
+  let jsName = definition.title.replace(/ /g, '')
+  let nodeName = definition.title.toLowerCase().replace(/ /g, '-')
   return `
   const axios = require('axios');
   module.exports = function(RED) {
@@ -17,18 +17,25 @@ const jsTemplate = title => {
       RED.nodes.createNode(this, config);
       var node = this;
 
-      // Retrieve the config node
-      node.server = RED.nodes.getNode(config.server);
-      if (node.server) {
-        node.debug("Got Flock config");
-        node.on('input', function(msg) {
-          node.debug("Got Flock config");
-          msg.payload = msg.payload.toLowerCase();
-          node.send(msg);
-        });
-      } else {
-        node.debug("Missing Flock config");
-      }
+      node.on('input', function(msg) {
+        // Retrieve the config node
+        node.server = RED.nodes.getNode(config.server);
+        if (!node.server) return node.error("Missing Flock config");
+
+        const host = node.server.host
+        const apiKey = node.server.key
+        const url = host + ${definition.urlPath} + '?apiKey=' + apiKey
+
+        axios.post(host)
+          .then(function(result) {
+            node.log(result.data);
+          })
+          .catch(function(error) {
+            node.error(error);
+          })
+        
+        node.send(msg);
+      });
     }
     RED.nodes.registerType("flock-${nodeName}", ${jsName}Node);
   }
@@ -48,7 +55,7 @@ const htmlTemplate = (title, description, schema) => {
 
   return `
   <script type="text/javascript">
-    RED.nodes.registerType('${nodeName}',{
+    RED.nodes.registerType('flock-${nodeName}',{
         category: 'Flock',
         color: '#D8BFD8',
         defaults: {
@@ -58,11 +65,11 @@ const htmlTemplate = (title, description, schema) => {
         inputs:1,
         outputs:1,
         icon: "file.png",
-        label: function() { return this.name || "${nodeName}"; }
+        label: function() { return this.name || "flock-${nodeName}"; }
     });
   </script>
 
-  <script type="text/x-red" data-template-name="${nodeName}">
+  <script type="text/x-red" data-template-name="flock-${nodeName}">
     <div class="form-row">
       <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
       <input type="text" id="node-input-server">
@@ -70,7 +77,7 @@ const htmlTemplate = (title, description, schema) => {
     ${payloadInputs.join('\n  ')}
   </script>
 
-  <script type="text/x-red" data-help-name="${nodeName}">
+  <script type="text/x-red" data-help-name="flock-${nodeName}">
     <h2>${title}</h2>
     <p>${description}</p>
   </script>
@@ -84,7 +91,7 @@ glob.sync('./src/schema/json/**/*.json').forEach(function(file) {
     let description = definition.description
     let schema = definition.schema
     let nodeName = title.toLowerCase().replace(/ /g, '-')
-    fs.writeFile(`${NODES_DIRECTORY}/flock-${nodeName}.js`, jsTemplate(title), err => {
+    fs.writeFile(`${NODES_DIRECTORY}/flock-${nodeName}.js`, jsTemplate(definition), err => {
       if (err) throw err
       console.log('Saved JS!')
     })
