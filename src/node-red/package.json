@@ -1,6 +1,6 @@
 {
   "name": "@pollygot/node-red-contrib-flock",
-  "version": "1.0.54",
+  "version": "1.0.60",
   "description": "Node-RED helpers for Pollygot Flock. An API on top of multiple notification services to overcome repetitive building and platform idiosyncrasies. ",
   "main": "index.js",
   "scripts": {
@@ -31,6 +31,8 @@
   "dependencies": {
     "@types/node": "^12.6.8",
     "@types/node-red": "^0.20.0",
-    "axios": "^0.19.0"
+    "axios": "^0.19.0",
+    "handlebars": "^4.1.2",
+    "handlebars-helpers": "^0.10.0"
   }
 }

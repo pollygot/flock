@@ -4,7 +4,10 @@
    */
 
   const axios = require('axios');
-  const mustache = require('mustache');
+  var handlebars = require('handlebars');
+  var handlebarHepers = require('handlebars-helpers')({
+    handlebars: handlebars
+  });
 
   module.exports = function(RED) {
     function ExpoSendPushNode(config) {
@@ -22,9 +25,9 @@
 
         // Parse any params
         
-        var to = config.to.indexOf("{{") != -1 ? mustache.render(config.to, msg) : config.to
-        var title = config.title.indexOf("{{") != -1 ? mustache.render(config.title, msg) : config.title
-        var body = config.body.indexOf("{{") != -1 ? mustache.render(config.body, msg) : config.body
+        var to = config.to.indexOf("{{") != -1 ? handlebars.compile(config.to)(msg) : config.to
+        var title = config.title.indexOf("{{") != -1 ? handlebars.compile(config.title)(msg) : config.title
+        var body = config.body.indexOf("{{") != -1 ? handlebars.compile(config.body)(msg) : config.body
 
         // Send the message
         axios.post(url, {

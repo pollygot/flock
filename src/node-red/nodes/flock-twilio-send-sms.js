@@ -4,7 +4,10 @@
    */
 
   const axios = require('axios');
-  const mustache = require('mustache');
+  var handlebars = require('handlebars');
+  var handlebarHepers = require('handlebars-helpers')({
+    handlebars: handlebars
+  });
 
   module.exports = function(RED) {
     function TwilioSendSMSNode(config) {
@@ -21,11 +24,11 @@
         const url = host + '/twilio/sms/send?apikey=' + apiKey
 
         // Parse any params
-        var twilioAccountSid = config.twilioAccountSid.indexOf("{{") != -1 ? mustache.render(config.twilioAccountSid, msg) : config.twilioAccountSid
-        var twilioToken = config.twilioToken.indexOf("{{") != -1 ? mustache.render(config.twilioToken, msg) : config.twilioToken
-        var to = config.to.indexOf("{{") != -1 ? mustache.render(config.to, msg) : config.to
-        var from = config.from.indexOf("{{") != -1 ? mustache.render(config.from, msg) : config.from
-        var body = config.body.indexOf("{{") != -1 ? mustache.render(config.body, msg) : config.body
+        var twilioAccountSid = config.twilioAccountSid.indexOf("{{") != -1 ? handlebars.compile(config.twilioAccountSid)(msg) : config.twilioAccountSid
+        var twilioToken = config.twilioToken.indexOf("{{") != -1 ? handlebars.compile(config.twilioToken)(msg) : config.twilioToken
+        var to = config.to.indexOf("{{") != -1 ? handlebars.compile(config.to)(msg) : config.to
+        var from = config.from.indexOf("{{") != -1 ? handlebars.compile(config.from)(msg) : config.from
+        var body = config.body.indexOf("{{") != -1 ? handlebars.compile(config.body)(msg) : config.body
 
         // Send the message
         axios.post(url, {

@@ -29,6 +29,7 @@ describe('flock-expo-send-push Node', function() {
   it('should send a push notification', function(done) {
     const payload = {
       server: {},
+      to: 'Test',
       title: 'Node Red',
       body: 'Hello World',
     }

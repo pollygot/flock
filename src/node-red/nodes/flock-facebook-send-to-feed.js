@@ -4,7 +4,10 @@
    */
 
   const axios = require('axios');
-  const mustache = require('mustache');
+  var handlebars = require('handlebars');
+  var handlebarHepers = require('handlebars-helpers')({
+    handlebars: handlebars
+  });
 
   module.exports = function(RED) {
     function FacebookSendtoFeedNode(config) {
@@ -21,11 +24,11 @@
         const url = host + '/facebook/feed/send?apikey=' + apiKey
 
         // Parse any params
-        var facebookAccessToken = config.facebookAccessToken.indexOf("{{") != -1 ? mustache.render(config.facebookAccessToken, msg) : config.facebookAccessToken
-        var facebookVerifyToken = config.facebookVerifyToken.indexOf("{{") != -1 ? mustache.render(config.facebookVerifyToken, msg) : config.facebookVerifyToken
-        var facebookAppSecret = config.facebookAppSecret.indexOf("{{") != -1 ? mustache.render(config.facebookAppSecret, msg) : config.facebookAppSecret
-        var feedId = config.feedId.indexOf("{{") != -1 ? mustache.render(config.feedId, msg) : config.feedId
-        var message = config.message.indexOf("{{") != -1 ? mustache.render(config.message, msg) : config.message
+        var facebookAccessToken = config.facebookAccessToken.indexOf("{{") != -1 ? handlebars.compile(config.facebookAccessToken)(msg) : config.facebookAccessToken
+        var facebookVerifyToken = config.facebookVerifyToken.indexOf("{{") != -1 ? handlebars.compile(config.facebookVerifyToken)(msg) : config.facebookVerifyToken
+        var facebookAppSecret = config.facebookAppSecret.indexOf("{{") != -1 ? handlebars.compile(config.facebookAppSecret)(msg) : config.facebookAppSecret
+        var feedId = config.feedId.indexOf("{{") != -1 ? handlebars.compile(config.feedId)(msg) : config.feedId
+        var message = config.message.indexOf("{{") != -1 ? handlebars.compile(config.message)(msg) : config.message
 
         // Send the message
         axios.post(url, {

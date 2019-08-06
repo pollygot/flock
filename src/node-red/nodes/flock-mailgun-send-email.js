@@ -4,7 +4,10 @@
    */
 
   const axios = require('axios');
-  const mustache = require('mustache');
+  var handlebars = require('handlebars');
+  var handlebarHepers = require('handlebars-helpers')({
+    handlebars: handlebars
+  });
 
   module.exports = function(RED) {
     function MailgunSendEmailNode(config) {
@@ -21,13 +24,13 @@
         const url = host + '/mailgun/email/send?apikey=' + apiKey
 
         // Parse any params
-        var mailgunApiKey = config.mailgunApiKey.indexOf("{{") != -1 ? mustache.render(config.mailgunApiKey, msg) : config.mailgunApiKey
-        var mailgunDomain = config.mailgunDomain.indexOf("{{") != -1 ? mustache.render(config.mailgunDomain, msg) : config.mailgunDomain
-        var to = config.to.indexOf("{{") != -1 ? mustache.render(config.to, msg) : config.to
-        var from = config.from.indexOf("{{") != -1 ? mustache.render(config.from, msg) : config.from
-        var subject = config.subject.indexOf("{{") != -1 ? mustache.render(config.subject, msg) : config.subject
-        var text = config.text.indexOf("{{") != -1 ? mustache.render(config.text, msg) : config.text
-        var recipientVariables = config.recipientVariables.indexOf("{{") != -1 ? mustache.render(config.recipientVariables, msg) : config.recipientVariables
+        var mailgunApiKey = config.mailgunApiKey.indexOf("{{") != -1 ? handlebars.compile(config.mailgunApiKey)(msg) : config.mailgunApiKey
+        var mailgunDomain = config.mailgunDomain.indexOf("{{") != -1 ? handlebars.compile(config.mailgunDomain)(msg) : config.mailgunDomain
+        var to = config.to.indexOf("{{") != -1 ? handlebars.compile(config.to)(msg) : config.to
+        var from = config.from.indexOf("{{") != -1 ? handlebars.compile(config.from)(msg) : config.from
+        var subject = config.subject.indexOf("{{") != -1 ? handlebars.compile(config.subject)(msg) : config.subject
+        var text = config.text.indexOf("{{") != -1 ? handlebars.compile(config.text)(msg) : config.text
+        var recipientVariables = config.recipientVariables.indexOf("{{") != -1 ? handlebars.compile(config.recipientVariables)(msg) : config.recipientVariables
 
         // Send the message
         axios.post(url, {

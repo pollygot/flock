@@ -13,12 +13,12 @@ const jsTemplate = (title, urlPath, schema) => {
   const configProperties = schema.properties.config.properties
   const configValues = Object.entries(configProperties).map(
     ([name, details]) =>
-      `var ${name} = config.${name}.indexOf("{{") != -1 ? mustache.render(config.${name}, msg) : config.${name}`
+      `var ${name} = config.${name}.indexOf("{{") != -1 ? handlebars.compile(config.${name})(msg) : config.${name}`
   )
   const payloadProperties = schema.properties.payload.properties
   const payloadValues = Object.entries(payloadProperties).map(
     ([name, details]) =>
-      `var ${name} = config.${name}.indexOf("{{") != -1 ? mustache.render(config.${name}, msg) : config.${name}`
+      `var ${name} = config.${name}.indexOf("{{") != -1 ? handlebars.compile(config.${name})(msg) : config.${name}`
   )
   return `
   /**
@@ -26,7 +26,10 @@ const jsTemplate = (title, urlPath, schema) => {
    */
 
   const axios = require('axios');
-  const mustache = require('mustache');
+  var handlebars = require('handlebars');
+  var handlebarHepers = require('handlebars-helpers')({
+    handlebars: handlebars
+  });
 
   module.exports = function(RED) {
     function ${jsName}Node(config) {
@@ -137,7 +140,8 @@ const htmlTemplate = (title, description, schema) => {
     <h2>${title}</h2>
     <p>${description}</p>
     <h3>Usage</h3>
-    <p>Use {{{ mustache_templates }}} to extract details from the message payload.</p>
+    <p>Use {{{ handlbars }}} to extract details from the message payload.</p>
+    <p>See https://github.com/helpers/handlebars-helpers for a full list of Handlebar helpers.</p>
   </script>
 `
 }
