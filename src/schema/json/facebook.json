@@ -1,0 +1,52 @@
+{
+  "twilioSendSms": {
+    "title": "Facebook Send to Feed",
+    "description": "A RESTful API for interacting with Facebook.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "type": "object",
+          "properties": {
+            "facebookAccessToken": {
+              "type": "string"
+            },
+            "facebookVerifyToken": {
+              "type": "string"
+            },
+            "facebookAppSecret": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "patterns": [],
+          "required": [
+            "facebookAccessToken",
+            "facebookVerifyToken",
+            "facebookAppSecret"
+          ]
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "feedId": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string",
+              "maxLength": 1000
+            }
+          },
+          "additionalProperties": false,
+          "patterns": [],
+          "required": [
+            "feedId",
+            "message"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "patterns": []
+    }
+  }
+}

@@ -1,0 +1,64 @@
+
+  <script type="text/javascript">
+    RED.nodes.registerType('flock-facebook-send-to-feed',{
+        category: 'Flock',
+        color: '#D8BFD8',
+        defaults: {
+          name: {value:""},
+          server: { value: '', type: 'flock-config' },
+          facebookAccessToken: { value: '' },
+          facebookVerifyToken: { value: '' },
+          facebookAppSecret: { value: '' },
+          feedId: { value: '' },
+          message: { value: '' },
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() { return this.name || "flock-facebook-send-to-feed"; }
+    });
+  </script>
+
+  <script type="text/x-red" data-template-name="flock-facebook-send-to-feed">
+    <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <div class="form-row">
+      <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
+      <input type="text" id="node-input-server">
+    </div>
+    
+    <div class="form-row">
+      <label for="node-input-facebookAccessToken"><i class="icon-tag"></i> facebookAccessToken</label>
+      <input type="text" id="node-input-facebookAccessToken" placeholder="">
+    </div>
+  
+    <div class="form-row">
+      <label for="node-input-facebookVerifyToken"><i class="icon-tag"></i> facebookVerifyToken</label>
+      <input type="text" id="node-input-facebookVerifyToken" placeholder="">
+    </div>
+  
+    <div class="form-row">
+      <label for="node-input-facebookAppSecret"><i class="icon-tag"></i> facebookAppSecret</label>
+      <input type="text" id="node-input-facebookAppSecret" placeholder="">
+    </div>
+  
+    <div class="form-row">
+      <label for="node-input-feedId"><i class="icon-tag"></i> feedId</label>
+      <input type="text" id="node-input-feedId" placeholder="">
+    </div>
+  
+    <div class="form-row">
+      <label for="node-input-message"><i class="icon-tag"></i> message</label>
+      <textarea id="node-input-message" style="width:93%;height:100px;"></textarea>
+    </div>
+  </script>
+
+  <script type="text/x-red" data-help-name="flock-facebook-send-to-feed">
+    <h2>Facebook Send to Feed</h2>
+    <p>A RESTful API for interacting with Facebook.</p>
+    <h3>Usage</h3>
+    <p>Use {{{ mustache_templates }}} to extract details from the message payload.</p>
+  </script>
