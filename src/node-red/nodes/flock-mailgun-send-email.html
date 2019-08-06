@@ -22,6 +22,10 @@
 
   <script type="text/x-red" data-template-name="flock-mailgun-send-email">
     <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
       <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
       <input type="text" id="node-input-server">
     </div>
@@ -58,4 +62,6 @@
   <script type="text/x-red" data-help-name="flock-mailgun-send-email">
     <h2>Mailgun Send Email</h2>
     <p>Mailgun is a service for sending transactional emails.</p>
+    <h3>Usage</h3>
+    <p>Use {{{ templates }}} to extract details from the message payload.</p>
   </script>

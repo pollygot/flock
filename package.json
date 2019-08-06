@@ -18,7 +18,6 @@
   },
   "homepage": "https://gitlab.com/pollygot/flock#readme",
   "devDependencies": {
-    "glob": "^7.1.4",
     "joi": "^14.3.1",
     "joi-to-json-schema": "^5.1.0"
   }

@@ -102,6 +102,10 @@ const htmlTemplate = (title, description, schema) => {
 
   <script type="text/x-red" data-template-name="flock-${nodeName}">
     <div class="form-row">
+      <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
       <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
       <input type="text" id="node-input-server">
     </div>
@@ -111,32 +115,11 @@ const htmlTemplate = (title, description, schema) => {
   <script type="text/x-red" data-help-name="flock-${nodeName}">
     <h2>${title}</h2>
     <p>${description}</p>
+    <h3>Usage</h3>
+    <p>Use {{{ templates }}} to extract details from the message payload.</p>
   </script>
 `
 }
-
-// glob.sync('./src/schema/json/**/*.json').forEach(function(file) {
-//   var category = require(path.resolve(file))
-//   Object.entries(category).map(([type, definition]) => {
-//     let title = definition.title
-//     let description = definition.description
-//     let schema = definition.schema
-//     let nodeName = title.toLowerCase().replace(/ /g, '-')
-//     fs.writeFile(`${NODES_DIRECTORY}/flock-${nodeName}.js`, jsTemplate(definition), err => {
-//       if (err) throw err
-//       console.log('Saved JS!')
-//     })
-//     fs.writeFile(
-//       `${NODES_DIRECTORY}/flock-${nodeName}.html`,
-//       htmlTemplate(title, description, schema),
-//       err => {
-//         if (err) throw err
-//         console.log('Schema HTML!')
-//       }
-//     )
-//   })
-// })
-
 const main = () => {
   // Loop through each type
   Object.entries(definitions).map(([type, definitions]) => {
