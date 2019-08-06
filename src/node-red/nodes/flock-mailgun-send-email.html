@@ -4,6 +4,7 @@
         category: 'Flock',
         color: '#D8BFD8',
         defaults: {
+          name: {value:""},
           server: { value: '', type: 'flock-config' },
           mailgunApiKey: { value: '' },
           mailgunDomain: { value: '' },
@@ -25,43 +26,51 @@
       <label for="node-input-name"><i class="icon-tag"></i> Name</label>
       <input type="text" id="node-input-name" placeholder="Name">
     </div>
+
     <div class="form-row">
       <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
       <input type="text" id="node-input-server">
     </div>
+    
     <div class="form-row">
-    <label for="node-input-mailgunApiKey"><i class="icon-tag"></i> mailgunApiKey</label>
-    <input type="text" id="node-input-mailgunApiKey" placeholder="">
-  </div>
-  <div class="form-row">
-    <label for="node-input-mailgunDomain"><i class="icon-tag"></i> mailgunDomain</label>
-    <input type="text" id="node-input-mailgunDomain" placeholder="">
-  </div>
-  <div class="form-row">
-    <label for="node-input-to"><i class="icon-tag"></i> to</label>
-    <input type="text" id="node-input-to" placeholder="">
-  </div>
-  <div class="form-row">
-    <label for="node-input-from"><i class="icon-tag"></i> from</label>
-    <input type="text" id="node-input-from" placeholder="">
-  </div>
-  <div class="form-row">
-    <label for="node-input-subject"><i class="icon-tag"></i> subject</label>
-    <input type="text" id="node-input-subject" placeholder="">
-  </div>
-  <div class="form-row">
-    <label for="node-input-text"><i class="icon-tag"></i> text</label>
-    <input type="text" id="node-input-text" placeholder="">
-  </div>
-  <div class="form-row">
-    <label for="node-input-recipientVariables"><i class="icon-tag"></i> recipientVariables</label>
-    <input type="text" id="node-input-recipientVariables" placeholder="">
-  </div>
+      <label for="node-input-mailgunApiKey"><i class="icon-tag"></i> mailgunApiKey</label>
+      <input type="text" id="node-input-mailgunApiKey" placeholder="">
+    </div>
+  
+    <div class="form-row">
+      <label for="node-input-mailgunDomain"><i class="icon-tag"></i> mailgunDomain</label>
+      <input type="text" id="node-input-mailgunDomain" placeholder="">
+    </div>
+  
+    <div class="form-row">
+      <label for="node-input-to"><i class="icon-tag"></i> to</label>
+      <input type="text" id="node-input-to" placeholder="">
+    </div>
+  
+    <div class="form-row">
+      <label for="node-input-from"><i class="icon-tag"></i> from</label>
+      <input type="text" id="node-input-from" placeholder="">
+    </div>
+  
+    <div class="form-row">
+      <label for="node-input-subject"><i class="icon-tag"></i> subject</label>
+      <input type="text" id="node-input-subject" placeholder="">
+    </div>
+  
+    <div class="form-row">
+      <label for="node-input-text"><i class="icon-tag"></i> text</label>
+      <textarea id="node-input-text" style="width:93%;height:100px;"></textarea>
+    </div>
+  
+    <div class="form-row">
+      <label for="node-input-recipientVariables"><i class="icon-tag"></i> recipientVariables</label>
+      <input type="text" id="node-input-recipientVariables" placeholder="">
+    </div>
   </script>
 
   <script type="text/x-red" data-help-name="flock-mailgun-send-email">
     <h2>Mailgun Send Email</h2>
     <p>Mailgun is a service for sending transactional emails.</p>
     <h3>Usage</h3>
-    <p>Use {{{ templates }}} to extract details from the message payload.</p>
+    <p>Use {{{ mustache_templates }}} to extract details from the message payload.</p>
   </script>

@@ -4,6 +4,7 @@
         category: 'Flock',
         color: '#D8BFD8',
         defaults: {
+          name: {value:""},
           server: { value: '', type: 'flock-config' },
           to: { value: '' },
           title: { value: '' },
@@ -21,27 +22,31 @@
       <label for="node-input-name"><i class="icon-tag"></i> Name</label>
       <input type="text" id="node-input-name" placeholder="Name">
     </div>
+
     <div class="form-row">
       <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
       <input type="text" id="node-input-server">
     </div>
+    
     <div class="form-row">
-    <label for="node-input-to"><i class="icon-tag"></i> to</label>
-    <input type="text" id="node-input-to" placeholder="">
-  </div>
-  <div class="form-row">
-    <label for="node-input-title"><i class="icon-tag"></i> title</label>
-    <input type="text" id="node-input-title" placeholder="">
-  </div>
-  <div class="form-row">
-    <label for="node-input-body"><i class="icon-tag"></i> body</label>
-    <input type="text" id="node-input-body" placeholder="">
-  </div>
+      <label for="node-input-to"><i class="icon-tag"></i> to</label>
+      <input type="text" id="node-input-to" placeholder="">
+    </div>
+  
+    <div class="form-row">
+      <label for="node-input-title"><i class="icon-tag"></i> title</label>
+      <input type="text" id="node-input-title" placeholder="">
+    </div>
+  
+    <div class="form-row">
+      <label for="node-input-body"><i class="icon-tag"></i> body</label>
+      <input type="text" id="node-input-body" placeholder="">
+    </div>
   </script>
 
   <script type="text/x-red" data-help-name="flock-expo-send-push">
     <h2>Expo Send Push</h2>
     <p>A RESTful API for interacting with Expo.</p>
     <h3>Usage</h3>
-    <p>Use {{{ templates }}} to extract details from the message payload.</p>
+    <p>Use {{{ mustache_templates }}} to extract details from the message payload.</p>
   </script>

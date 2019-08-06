@@ -12,11 +12,13 @@ const jsTemplate = (title, urlPath, schema) => {
   let nodeName = title.toLowerCase().replace(/ /g, '-')
   const configProperties = schema.properties.config.properties
   const configValues = Object.entries(configProperties).map(
-    ([name, details]) => `var ${name} = config.${name}.indexOf("{{") != -1 ? mustache.render(config.${name}, msg) : config.${name}`
+    ([name, details]) =>
+      `var ${name} = config.${name}.indexOf("{{") != -1 ? mustache.render(config.${name}, msg) : config.${name}`
   )
   const payloadProperties = schema.properties.payload.properties
   const payloadValues = Object.entries(payloadProperties).map(
-    ([name, details]) => `var ${name} = config.${name}.indexOf("{{") != -1 ? mustache.render(config.${name}, msg) : config.${name}`
+    ([name, details]) =>
+      `var ${name} = config.${name}.indexOf("{{") != -1 ? mustache.render(config.${name}, msg) : config.${name}`
   )
   return `
   /**
@@ -78,22 +80,27 @@ const htmlTemplate = (title, description, schema) => {
     ([name, details]) => `${name}: { value: '' }`
   )
   const configInputs = Object.entries(configProperties).map(
-    ([name, details]) => `<div class="form-row">
-    <label for="node-input-${name}"><i class="icon-tag"></i> ${name}</label>
-    <input type="text" id="node-input-${name}" placeholder="">
-  </div>`
+    ([name, details]) => `
+    <div class="form-row">
+      <label for="node-input-${name}"><i class="icon-tag"></i> ${name}</label>
+      <input type="text" id="node-input-${name}" placeholder="">
+    </div>`
   )
   // Payload
   const payloadProperties = schema.properties.payload.properties
   const payloadDefaults = Object.entries(payloadProperties).map(
     ([name, details]) => `${name}: { value: '' }`
   )
-  const payloadInputs = Object.entries(payloadProperties).map(
-    ([name, details]) => `<div class="form-row">
-    <label for="node-input-${name}"><i class="icon-tag"></i> ${name}</label>
-    <input type="text" id="node-input-${name}" placeholder="">
-  </div>`
-  )
+  const payloadInputs = Object.entries(payloadProperties).map(([name, details]) => {
+    const inputText = `<input type="text" id="node-input-${name}" placeholder="">`
+    const inputTextArea = `<textarea id="node-input-${name}" style="width:93%;height:100px;"></textarea>`
+    let maxLength = details.maxLength || 200
+    return `
+    <div class="form-row">
+      <label for="node-input-${name}"><i class="icon-tag"></i> ${name}</label>
+      ${maxLength > 255 ? inputTextArea : inputText}
+    </div>`
+  })
   let defaults = configDefaults.concat(payloadDefaults)
   let inputs = configInputs.concat(payloadInputs)
   return `
@@ -102,6 +109,7 @@ const htmlTemplate = (title, description, schema) => {
         category: 'Flock',
         color: '#D8BFD8',
         defaults: {
+          name: {value:""},
           server: { value: '', type: 'flock-config' },
           ${defaults.join(',\n          ')},
         },
@@ -117,6 +125,7 @@ const htmlTemplate = (title, description, schema) => {
       <label for="node-input-name"><i class="icon-tag"></i> Name</label>
       <input type="text" id="node-input-name" placeholder="Name">
     </div>
+
     <div class="form-row">
       <label for="node-input-server"><i class="icon-tag"></i> Flock Config</label>
       <input type="text" id="node-input-server">
@@ -128,7 +137,7 @@ const htmlTemplate = (title, description, schema) => {
     <h2>${title}</h2>
     <p>${description}</p>
     <h3>Usage</h3>
-    <p>Use {{{ templates }}} to extract details from the message payload.</p>
+    <p>Use {{{ mustache_templates }}} to extract details from the message payload.</p>
   </script>
 `
 }
@@ -143,10 +152,14 @@ const main = () => {
       let schema = convert(definition.schema)
       let nodeName = title.toLowerCase().replace(/ /g, '-')
 
-      fs.writeFile(`${NODES_DIRECTORY}/flock-${nodeName}.js`, jsTemplate(title, urlPath, schema), err => {
-        if (err) throw err
-        console.log('Saved JS!')
-      })
+      fs.writeFile(
+        `${NODES_DIRECTORY}/flock-${nodeName}.js`,
+        jsTemplate(title, urlPath, schema),
+        err => {
+          if (err) throw err
+          console.log('Saved JS!')
+        }
+      )
       fs.writeFile(
         `${NODES_DIRECTORY}/flock-${nodeName}.html`,
         htmlTemplate(title, description, schema),

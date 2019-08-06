@@ -12,10 +12,10 @@ module.exports = {
         mailgunDomain: joi.string().required(),
       }),
       payload: joi.object().keys({
-        to: joi.number().required(),
+        to: joi.string().required(),
         from: joi.string().required(),
         subject: joi.string().required(),
-        text: joi.string().required(),
+        text: joi.string().max(1000).required(),
         recipientVariables: joi.object(),
       })
     })
