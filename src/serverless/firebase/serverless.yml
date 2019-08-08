@@ -1,0 +1,32 @@
+service: ${file(./package.json):name}
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: ap-southeast-1
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+webpack:
+    webpackConfig: webpack.config.js
+    includeModules: false
+    packager: 'npm'
+
+custom:
+  serverless-offline:
+    port: 4000
+  
+package:
+  include:
+    ../../shared
+    ../../../schema
+
+functions:
+  send-to-firestore:
+    handler: handler.firestoreAdd
+    events:
+      - http:
+          path: firestore/add
+          method: post

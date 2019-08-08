@@ -5,6 +5,7 @@ jspm_packages
 # Serverless directories
 .serverless
 .build
+.webpack
 
 # Crap
 .DS_Store
