@@ -1,7 +1,7 @@
 var joi = require('joi')
 
 module.exports = {
-  twilioSendSms: {
+  facebookSendToFeed: {
     title: 'Facebook Send to Feed',
     description: 'A RESTful API for interacting with Facebook.',
     urlPath: '/facebook/feed/send',
