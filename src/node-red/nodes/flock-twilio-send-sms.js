@@ -8,6 +8,7 @@
   var handlebarHepers = require('handlebars-helpers')({
     handlebars: handlebars
   });
+  handlebars.registerHelper('date', require('helper-date'));
 
   module.exports = function(RED) {
     function TwilioSendSMSNode(config) {

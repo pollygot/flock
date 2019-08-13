@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@hapi/joi": "^15.1.0",
+    "helper-date": "^1.0.1",
     "mustache": "^3.0.1"
   }
 }
